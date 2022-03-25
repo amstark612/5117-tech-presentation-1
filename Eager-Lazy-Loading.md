@@ -58,7 +58,8 @@ post = Post.query\
            .options(db.joinedload(Post.comments))\
            .first()
 
-# The statement above translates to the following SQL, which only makes one trip to the database and stores the comments in the comments attribute of the Post object:
+# The statement above translates to the following SQL, which only makes one trip to the database 
+# and stores the comments in the comments attribute of the Post object:
 
 SELECT *
 FROM post
@@ -82,7 +83,8 @@ SELECT *
 FROM comment
 WHERE created_at > '2022-03-14';
 
-# And then 100 additional trips to the database to retrieve the posts! It would be better to include the Posts in our initial query:
+# And then 100 additional trips to the database to retrieve the posts! 
+# It would be better to include the Posts in our initial query:
 
 # joining any table by specifying join conditions:
 Comment.query.filter(Comment.created_at > (date.today() - timedelta(days=10))).join(Post, Post.id == Comment.post_id).all()
@@ -105,7 +107,8 @@ subquery = db.session.query(
     .group_by(Post.id)\
     .subquery()
 
-# Remember, here, subquery is like typing your search terms into the Google search bar without actually hitting enter to execute - no trip has been made to the db, and no results have been returned
+# Remember, here, subquery is like typing your search terms into the Google search bar without actually hitting 
+# enter to execute - no trip has been made to the db, and no results have been returned
 
 post = Post.query\
             .join(subquery, Post.id == subquery.c.id)\
