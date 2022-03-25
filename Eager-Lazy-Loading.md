@@ -98,7 +98,7 @@ What about more complex queries? Sometimes, you might only want selected attribu
 
 It's important to note, here, that any complete and performant application using an ORM must also be able to execute raw SQL. It is unrealistic to imagine our site having thousands of `Post`s and making two additional trips to the database (once to get the number of `Comment`s and another to get the author's `username`) *for each `Post`*. No one would ever use our site.
 
-Anyway, if you what you want back still fits into a model, you can use subqueries. For example, maybe you only want the `Post` with the more than 10 `Comment`s - you're still retrieving a `Post` object in the end, you just want to select the `Post` based on its related entities.
+Anyway, if the data you're trying to retrieve does not span multiple models, you can use subqueries. For example, maybe you only want the `Post` with the more than 10 `Comment`s - you're still retrieving a `Post` object in the end, you just want to select the `Post` based on its related entities.
 
 ```
 subquery = db.session.query(
