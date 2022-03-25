@@ -1,6 +1,6 @@
 ## Aggregates
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5dda5321-809b-4c62-afc8-d7a23ffab7c6/Untitled.png)
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/5dda5321-809b-4c62-afc8-d7a23ffab7c6/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220325%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220325T171645Z&X-Amz-Expires=86400&X-Amz-Signature=7f8d39bb3ccb8b400be507600a2a361d2c1158594592ac79e2fdbf526599536b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
 
 ```jsx
 MIN()
