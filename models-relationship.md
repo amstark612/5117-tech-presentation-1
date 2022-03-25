@@ -47,7 +47,7 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer)
 ~~~
 Here are some common types for the column:
-![alt text](https://raw.github.com/ctnguyen612/5117-tech-presentation-1.git/main/types.png)
+![](./types.png)
 
 If we want to set the id as the primary key of the table, then we add “primary_key = True” as our second argument
 ~~~python
