@@ -8,7 +8,7 @@
 
 ## Insert
 
-The Insert action consist of 6 sub-tasks, they are:
+The Insert action consist of 5 sub-tasks, they are:
 
 * object constructed
 * adding
