@@ -3,6 +3,12 @@
 ## Defining Models
 
 ### Where to start
+First of all, when we want to use SQLAlchemy, we need to install and update with pip:
+```
+pip install -U Flask-SQLAlchemy
+```
+You will need to type this command line in your terminal
+
 To create tables, we need to start with the object model and to generate the tables from it.
 In this case, we will use SQLAlchemy, which is a python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
 
