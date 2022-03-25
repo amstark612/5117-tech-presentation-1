@@ -138,8 +138,9 @@ We will mainly focus on the first approach
 
 The Insert action consist of 6 sub-tasks, they are:
 
-* retrive information
+* retrieve information
 * update
+* commit
 
 1. ### retrive information
 
@@ -178,6 +179,10 @@ The Insert action consist of 6 sub-tasks, they are:
     # will print
     # User(id = `1`, username = `Peter`, display_name = `display_name1`, first_name = `first`, last_name = `last`, birthday = `1997-02-09`)
     ~~~~
+
+3. ### commit
+
+    after we update the information, we need to use `.commit()`
 
 ### Filter
 
