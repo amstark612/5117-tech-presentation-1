@@ -94,7 +94,15 @@ Comment.query.filter(Comment.created_at > (date.today() - timedelta(days=10))).o
 ```
 
 ## Eager loading selected columns (raw SQL) & subqueries
-What about more complex queries? Sometimes, you might only want selected attributes of related entities. For example, when we display a `Post`, we also want to display the `username` of the author and the number of `Comment`s that have been added to it. In all honesty, this is easier using raw SQL - like many frameworks, ORMs are great up until you want to deviate from its opinion. ORMs don't want you to break the model - every row, or relation, should map to one object. Once you start pulling multiple columns from multiple tables, you no longer have a Model.
+What about more complex queries? Sometimes, you might only want selected attributes of related entities. For example, when we display a `Post`, we also want to display the `username` of the author and the number of `Comment`s that have been added to it. In all honesty, this is easier using raw SQL - like many frameworks, ORMs are great up until you want to deviate from its opinion. ORMs don't want you to break the model - every row, or relation, should map to one object. Once you start pulling multiple columns from multiple tables, you no longer have a Model. Thus far, we have not discovered a way to do the following in SQLAlchemy:
+
+```
+SELECT post.*, count(comment), username
+FROM post
+LEFT JOIN comment ON comment.post_id = post.id
+LEFT JOIN "user" ON "user".id = post.creator_id
+GROUP BY (post.id, username);
+```
 
 It's important to note, here, that any complete and performant application using an ORM must also be able to execute raw SQL. It is unrealistic to imagine our site having thousands of `Post`s and making two additional trips to the database (once to get the number of `Comment`s and another to get the author's `username`) *for each `Post`*. No one would ever use our site.
 
