@@ -46,7 +46,7 @@ The functions of the parameters mentioned in the above code are as follows -
 - **isouter** − if True, renders a LEFT OUTER JOIN, instead of JOIN
 - **full** − if True, renders a FULL OUTER JOIN, instead of LEFT OUTER JOIN
 
-Alright let’s look at two tables, the Post table and the comment table. We can construct a simple implicit join between Post and COment, we can use Query.filter() to equate their related columns toegther. 
+Alright let’s look at two tables, the Post table and the comment table. We can construct a simple implicit join between Post and Comment, we can use Query.filter() to equate their related columns toegther. 
 
 something like..
 
@@ -90,7 +90,7 @@ for result in r:
 Now what we will notice is that we *may* get an error saying that AttributeError: ‘NoneType’ object has no attribute ‘body’. And the reason for this is because well, if we look back at our list of tuples. We notice that some Posts are associated with no comments, and have None listed as the second thing in the tuple. This is because, well, not all posts have comments. In order for us to get rid of this error we can add an if condition to our for loop before printing the post and the comment
 
 ```python
-for result in r:'
+for result in r:
 	if result[1]:
 		print('POST: {} COMMENT POSTED: {}'.format(result[0].title, result[1].body)
 ```
@@ -106,7 +106,7 @@ ON Post.id == Comment.post_id;
 If we wanted to we could have also just get the post title and comment body directly instead of referencing the class and getting an object back in our tuple
 
 ```python
-r = db.session.query(Post.title, Comment.body).outerjoin(Comment, Comment.post_id == Post.id).all(
+r = db.session.query(Post.title, Comment.body).outerjoin(Comment, Comment.post_id == Post.id).all()
 ```
 
 Doing a left join is pretty easy, you just have to remember to use the `outerjoin`, mention the table you want to join to and the joint condition.
