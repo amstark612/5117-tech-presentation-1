@@ -50,18 +50,64 @@ Alright let’s look at two tables, the Post table and the comment table. We can
 
 something like..
 
-`db.session.query(Post).join(Comment, Comment.post_id == Post.id).all()`
+```python
+r = db.session.query(Post, Comment).join(Comment, Comment.post_id == Post.id).all()
+```
+
+This should return a result of a list of tuples (Post object, Comment object) and we can iterate through them using a for loop andextract any information that I need. 
+
+```python
+for post, comment in r:
+  print(post.title, comment.body)
+```
 
 And the SQL expression would look something like:
 
-`SELECT [Post.id](http://Post.id)`
+```sql
+SELECT Post.id
 
-`FROM Post JOIN Comment`
+FROM Post JOIN Comment
 
-`WHERE [Post.id](http://Post.id) = Comment.post_id`
+ON Post.id = Comment.post_id
+```
 
 We perform our JOIN using the join() method. The first parameter we pass is the data model we’ll be joining with on the “right.” We then specify what we’ll be joining with “on”: the post_id column of our Comment model, and the id column of our Post model.
 
-In addition to simple JOINs, we can perform outer JOINs using the same syntax:
+In addition to simple JOINs, we can perform outer JOINs, which is essentially just a left join using the following syntax:
 
-`db.session.query(Post).join(Comment, Comment.post_id == Post.id).all()`
+```python
+r = db.session.query(Post, Comment).outerjoin(Comment, Comment.post_id == Post.id).all()
+```
+This would result in a list of tuples. The first part of the tuple would be a post and the second part would be a comment. Paste in snapshot of interactive shell.
+`[(<Post 1>, <Comment 10>), (<Post 1>, <Comment 18>), (<Post 2>, <Comment 3>), (<Post 3>, None)]`
+If we wanted to loop over these results we can do it by
+
+```python
+for result in r:
+	print('POST: {} COMMENT POSTED: {}'.format(result[0].title, result[1].body)
+```
+
+Now what we will notice is that we *may* get an error saying that AttributeError: ‘NoneType’ object has no attribute ‘body’. And the reason for this is because well, if we look back at our list of tuples. We notice that some Posts are associated with no comments, and have None listed as the second thing in the tuple. This is because, well, not all posts have comments. In order for us to get rid of this error we can add an if condition to our for loop before printing the post and the comment
+
+```python
+for result in r:'
+	if result[1]:
+		print('POST: {} COMMENT POSTED: {}'.format(result[0].title, result[1].body)
+```
+
+The SQL equivalent to the query would be
+
+```sql
+SELECT *
+FROM Post LEFT JOIN Comment
+ON Post.id == Comment.post_id;
+```
+
+If we wanted to we could have also just get the post title and comment body directly instead of referencing the class and getting an object back in our tuple
+
+```python
+r = db.session.query(Post.title, Comment.body).outerjoin(Comment, Comment.post_id == Post.id).all(
+```
+
+Doing a left join is pretty easy, you just have to remember to use the `outerjoin`, mention the table you want to join to and the joint condition.
+
