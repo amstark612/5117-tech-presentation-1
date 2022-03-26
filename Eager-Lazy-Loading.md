@@ -10,7 +10,7 @@ On one hand, every trip to the disc takes an eon and a half. The interest of you
 ## Lazy load by default
 Generally, you will want tell SQLAlchemy to lazy load relations by default:
 
-```
+~~~python
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
 
@@ -25,14 +25,14 @@ class Comment(db.Model):
 
     def __repr__(self):
         return '<Comment(creator_id=%s, post_id=%s>' % (self.creator_id, self.post_id)
-```
+~~~
 
 Here, we told SQLAlchemy *not* to load the associated `Post` and `User` when loading the `Comment`. Imagine if we were to set it to eager-load the `Post` associated with a `Comment` by default. If we were going to load a page for a `Post` and all the `Comment`s that belong to it, we would get a separate copy of the same `Post` for every single `Comment` that belongs to it! That is a lot of wasted space and wasted time.
 
 ### Example
 What does this mean in practice?
 
-```
+~~~python
 comment = Comment.get(1)
 print(f'The author of this comment is {comment.user.username}')
 
@@ -47,12 +47,12 @@ WHERE id = 1;
 SELECT *
 FROM user
 WHERE id = 111;
-```
+~~~
 
 ## Eager load manually - Join!
 Sometimes, though, it makes sense to eager load relations. If you were to visit the page for an individual `Post` where you want to display all of its `Comment`s, you would know beforehand that you want all of the comments. You could tell SQLAlchemy to manually load the `Post` and all of its `Comments` at the time of the query:
 
-```
+~~~python
 post = Post.query\
            .filter_by(id=1)\
            .options(db.joinedload(Post.comments))\
@@ -65,7 +65,7 @@ SELECT *
 FROM post
 LEFT JOIN comment ON comment.post_id = post.id
 WHERE post.id = 1;
-```
+~~~
 
 We would like to note, once again, how convenient it is that the ORM translates this to objects for us. It is not neccessary to grab the row that describes the `Post` and create a new `Post` object, then grab all the rows that describe `Comments` and create new `Comment` objects, and then put all of those `Comment` objects into a list, and then assign that list to `post.comments`.
 
@@ -74,7 +74,7 @@ Another instance where eager loading makes great sense happens when you have a m
 
 If 100 `Comment`s were added in the last 10 days, this would make 101 (or, N+1) trips to the database, even if some of those `Comment`s belong to the same post:
 
-```
+~~~python
 for comment in Comment.query.filter(Comment.created_at > (date.today() - timedelta(days=10))).all():
     print(comment.Post)
 
@@ -91,7 +91,7 @@ Comment.query.filter(Comment.created_at > (date.today() - timedelta(days=10))).j
 
 # if you have defined your relationship on your models, you do not need to specify join conditions:
 Comment.query.filter(Comment.created_at > (date.today() - timedelta(days=10))).options(db.joinedload(Post)).all()
-```
+~~~
 
 ## Eager loading selected columns (raw SQL) & subqueries
 What about more complex queries? Sometimes, you might only want selected attributes of related entities. For example, when we display a `Post`, we also want to display the `username` of the author and the number of `Comment`s that have been added to it. In all honesty, this is easier using raw SQL - like many frameworks, ORMs are great up until you want to deviate from its opinion. ORMs don't want you to break the model - every row, or relation, should map to one object. Once you start pulling multiple columns from multiple tables, you no longer have a Model. Thus far, we have not discovered a way to do the following in SQLAlchemy:
@@ -108,7 +108,7 @@ It's important to note, here, that any complete and performant application using
 
 Anyway, if the data you're trying to retrieve does not span multiple models, you can use subqueries. For example, maybe you only want the `Post` with the more than 10 `Comment`s - you're still retrieving a `Post` object in the end, you just want to select the `Post` based on its related entities.
 
-```
+~~~python
 subquery = db.session.query(
     Post.id,
     db.func.count(Comment.id).label('num_comments'))\
@@ -132,4 +132,4 @@ FROM post JOIN (
     GROUP BY post.id) AS anon_1 ON post.id = anon_1.id
 WHERE anon_1.num_comments > 10
 LIMIT 1;
-```
+~~~
