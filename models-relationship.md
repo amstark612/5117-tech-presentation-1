@@ -23,8 +23,6 @@ from flask_sqlalchemy import SQLAlchemy
 Next step, we need a base class to inherit from, which will be used for all your models, called db.Model. This will be stored on the SQLAlchemy instance that we should add
 
 ~~~python
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
 ~~~
 in our model.py file. Then we can use db.Model when we create our table
@@ -141,5 +139,14 @@ We will talk about lazy and eager loading later in the talk
 
 ## Create Table
 After defining your models, you can call “db.create_all()” and SQLAlchemy will create all the tables with all primary keys, foreign keys, triggers, etc for you!
-
+To use the ```db.create_all()```, you will need to define an app at the beginning of the file
+~~~python
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+~~~
+Then after you finished the defining models, you can add
+~~~python
+db.create_all()
+~~~
+at the end of your file.
 
