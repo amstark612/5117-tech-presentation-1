@@ -157,11 +157,10 @@ class Comment(db.Model):
         return '<Comment(creator_id=%s, post_id=%s>' % (self.creator_id, self.post_id)
 ~~~
 
+In our example, “cascade=’all, delete-orphan”” tells SQLAlchemy to delete a comment if its author or the post it belongs to is deleted
 We will talk about lazy and eager loading later in the talk
-In our example, “cascade=’all, delete-orphan”” tells SQLAlchemy to 
 
 ## Create Table
 After defining your models, you can call “db.create_all()” and SQLAlchemy will create all the tables with all primary keys, foreign keys, triggers, etc for you!
-
 
 
