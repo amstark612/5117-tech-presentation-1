@@ -58,9 +58,11 @@ db.session.query(func.count(User.first_name).group_by(User.first_name).all()
 
 The effect of joining is achieved by just placing two tables in either the columns clause or the where clause of the select() construct. Now we use the join() and outerjoin() methods. 
 
-The join() method returns a join object from one table object to another. 
+The `join()` method returns a join object from one table object to another. 
 
+```python
 join(right, onclause = None, isouter = False, full = False)
+```
 
 The functions of the parameters mentioned in the above code are as follows - 
 
