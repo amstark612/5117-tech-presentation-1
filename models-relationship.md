@@ -15,8 +15,6 @@ In this case, we will use SQLAlchemy, which is a python SQL toolkit and Object R
 Create a python file named “model.py”
 
 Import library that is required:
-Import the SQLAlchemy from flask_sqlalchemy
-
 ~~~python
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
