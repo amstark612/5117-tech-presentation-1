@@ -136,7 +136,7 @@ When using the ORM, there are two ways to update ORM objects.
 
 We will mainly focus on the first approach
 
-The Insert action consist of 6 sub-tasks, they are:
+The Insert action consist of 3 sub-tasks, they are:
 
 * retrieve information
 * update
