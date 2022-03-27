@@ -78,7 +78,7 @@ class Comment(db.Model):
 ~~~
 
 #### Representing Objects
-You should also define how the object should be represented should you do something like print it, for example, we wanted to know what the username of a user is when we print it i.e. “<Comment(some_commentid)>”
+You should also define how the object should be represented should you do something like print it, for example, we wanted to know what the creator_id and post_id of a comment is when we print it i.e. “<Comment(some_commentid)>”
 ~~~python
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
