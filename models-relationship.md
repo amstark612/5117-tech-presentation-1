@@ -34,37 +34,17 @@ in our model.py file. Then we can use db.Model when we create our table
 #### Declare Class
 To create a table, we will need to declare a class, the class name will be converted to lowercase as the table name“__tablename__”. You can define your own table name if you wish “__tablename__ = ‘comment’”
 
-~~~python
-class Comment(db.Model):
-~~~
-In this case, out table will be "__comment__"
 
 #### Adding Column
 Then we will define our columns in the table with ```db.Column()```
 
-For example, we want to add the column whose name is "id", and the type of this column is Integer, we will also want to add the creator_id of the comment and the post_id that the comment is posted to, we will add these in our file
-~~~python
-class Comment(db.Model):
-    id = db.Column(db.Integer)
-
-    creator_id = db.Column(db.Text)
-
-    post_id = db.Column(db.Integer)
-~~~
+For example, we want to add the column whose name is "id", and the type of this column is Integer, we will also want to add the creator_id of the comment and the post_id that the comment is posted to, we will add these in our file.
 Here are some common types for the column:
 ![](./types.png)
 
 If we want to set the id as the primary key of the table, then we add “primary_key = True” as our second argument
-~~~python
-class Comment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
 
-    creator_id = db.Column(db.Text)
-
-    post_id = db.Column(db.Integer)
-~~~
-
-NOT NULL in ORM:
+NOT NULL:
 Instead of NOT NULL, we use “nullable = False” to define the colume that cannot be null. For example, the primary can not be null, and we don't want the comment is added by a user that is not exit or add to a post that is not exit. Thus we will add the nullable to id, creator_id, and post_id.
 ~~~python
 class Comment(db.Model):
