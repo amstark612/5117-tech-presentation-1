@@ -1,8 +1,30 @@
 ## Aggregates
 
-![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/5dda5321-809b-4c62-afc8-d7a23ffab7c6/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220325%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220325T171645Z&X-Amz-Expires=86400&X-Amz-Signature=7f8d39bb3ccb8b400be507600a2a361d2c1158594592ac79e2fdbf526599536b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+### What is an Aggregate Function in SQL?
 
-```jsx
+An aggregate function in SQL returns one value after calculating multiple values of a column. We often use aggregate functions with the GROUP BY and HAVING clauses of the SELECT statement. The following are the five most common aggregate functions:
+
+![Untitled](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/5dda5321-809b-4c62-afc8-d7a23ffab7c6/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220325%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220325T171645Z&X-Amz-Expires=86400&X-Amz-Signature=7f8d39bb3ccb8b400be507600a2a361d2c1158594592ac79e2fdbf526599536b&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+This is how the SQL statements would look.
+```sql
+SELECT MIN(id)
+FROM Comments;
+
+SELECT MAX(id)
+FROM Comments;
+
+SELECT SUM(id)
+FROM Comments;
+
+SELECT AVG(id)
+FROM Comments;
+
+SELECT COUNT(id)
+FROM Comments;
+
+```
+This is how those functions are translated into flask-sqlalchemy.
+```python
 MIN()
 db.func.min()
 
@@ -10,7 +32,7 @@ MAX()
 db.func.max()
 
 SUM()
-db,func.sum([COLUMN]) - Adds the numerical values in a column
+db.func.sum([COLUMN]) - Adds the numerical values in a column
 
 AVG()
 db.func.avg()
@@ -26,10 +48,11 @@ db.session.query(func.count(User.first_name).all()
 //count the number of DISTINCT 'first_name' values
 db.session.query(func.count(distinct(User.first_name)).all()
 ```
-
 Of course, we can use the group_by() method on queries based on aggregates as well. group_by() works similarly to what we’d expect from SQL:
 
+```python
 db.session.query(func.count(User.first_name).group_by(User.first_name).all()
+```
 
 ## Joins
 
