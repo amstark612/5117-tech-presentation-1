@@ -3,11 +3,10 @@
 ## Defining Models
 
 ### Where to start
-First of all, when we want to use SQLAlchemy, we need to install and update with pip:
+First of all, type this line in your terminal to do the installation:
 ```
 pip install -U Flask-SQLAlchemy
 ```
-You will need to type this command line in your terminal
 
 To create tables, we need to start with the object model and to generate the tables from it.
 In this case, we will use SQLAlchemy, which is a python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
@@ -19,16 +18,18 @@ Import library that is required:
 Import the SQLAlchemy from flask_sqlalchemy
 
 ~~~python
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 ~~~
 
 Next step, we need a base class to inherit from, which will be used for all your models, called db.Model. This will be stored on the SQLAlchemy instance that we should add
 
 ~~~python
-db =SQLAlchemy()
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
+db = SQLAlchemy(app)
 ~~~
-in our model.py file. Then we can use db.Model when we create 
-our table
+in our model.py file. Then we can use db.Model when we create our table
 
 ### Declaring Models
 
