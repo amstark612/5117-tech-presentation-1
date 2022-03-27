@@ -136,7 +136,7 @@ When using the ORM, there are two ways to update ORM objects.
 
 We will mainly focus on the first approach
 
-The Insert action consist of 3 sub-tasks, they are:
+The Update action consist of 3 sub-tasks, they are:
 
 * retrieve information
 * update
@@ -170,8 +170,10 @@ The Insert action consist of 3 sub-tasks, they are:
     Then the object will appear in a collection called Session.dirty indicate the object is dirty
     >User1 in User.dirty -> True
 
-    Then, when we ready to commit a change, the `autoflush` will occur, the `Update` was officially emitted.
-    then,
+3. ### commit
+
+    after we update the information, we need to use `.commit()`
+    Then, the `autoflush` will occur, the `Update` was officially emitted.
     >User1 in User.dirty -> False
 
     ~~~~sql
@@ -179,10 +181,6 @@ The Insert action consist of 3 sub-tasks, they are:
     # will print
     # User(id = `1`, username = `Peter`, display_name = `display_name1`, first_name = `first`, last_name = `last`, birthday = `1997-02-09`)
     ~~~~
-
-3. ### commit
-
-    after we update the information, we need to use `.commit()`
 
 ### Filter
 
