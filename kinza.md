@@ -106,7 +106,8 @@ r = db.session.query(Post, Comment).outerjoin(Comment, Comment.post_id == Post.i
 This would result in a list of tuples. The first part of the tuple would be a post and the second part would be a comment. 
 
 
-```python[(<Post 1>, <Comment 10>), (<Post 1>, <Comment 18>), (<Post 2>, <Comment 3>), (<Post 3>, None)]
+```python
+[(<Post 1>, <Comment 10>), (<Post 1>, <Comment 18>), (<Post 2>, <Comment 3>), (<Post 3>, None)]
 ```
 
 If we wanted to loop over these results we can do it by
