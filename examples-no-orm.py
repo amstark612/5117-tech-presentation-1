@@ -122,24 +122,55 @@ for person in people:
     print(person['first_name'] + ' ' + person['last_name'])
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 '''
 ####### EXAMPLE 2
 chaining variable number of query parameters, aggregation, etc without defining lots
 of custom functions with minute differences
 '''
 
-def get_person_by_id(person):
+def get_person_by_first_name(name):
     with get_db_cursor() as cur:
-        cur.execute("select * from person where person_id = %s", (person,))
+        cur.execute("select * from person where first_name = %s", (name,))
         return cur.fetchone()
 
-def get_person_by_id_and_last_name(person, last_name):
+def get_person_by_first_and_last_name(first_name, last_name):
     with get_db_cursor() as cur:
-        cur.execute("select * from person where person_id = %s and person_last_name = %s", (person, last_name,))
+        cur.execute("select * from person where first_name = %s and last_name = %s", (first_name, last_name,))
         return cur.fetchone()
 
-get_person_by_id(1)
-get_person_by_id_and_last_name(1, 'Johnson')
+get_person_by_first_name('Bob')
+get_person_by_first_and_last_name('Bob', 'Johnson')
 
 def get_people_by_last_name(last_name, asc=True):
     with get_db_cursor() as cur:
@@ -151,6 +182,24 @@ def get_people_by_last_name(last_name, asc=True):
 
 get_people_by_last_name('Johnson')
 get_people_by_last_name('Johnson', False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 '''

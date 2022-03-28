@@ -106,6 +106,29 @@ for person in people:
     print(person.full_name)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 '''
 ####### EXAMPLE 2
 chaining variable number of query parameters, aggregation, etc without defining lots
@@ -114,6 +137,8 @@ of custom functions with minute differences
 
 User.get(id='1').first()
 User.get(id='1', last_name='Johnson').first()
+
+User.query.filter_by(first_name='Bob', last_name='Johnson')
 
 User.query.filter_by(last_name='Johnson').order_by(User.last_name.asc())
 User.query.filter_by(last_name='Johnson').order_by(User.last_name.desc())
